@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./App.scss";
 //import TodoList from "./TodoList/index.jsx";
 import "./components/ColorBox/colorBox.scss";
-import PostList from "./PostList/index.jsx";
-import Pagination from "./Pagination/index.jsx";
+import PostFiltersForm from "./components/PostFiltersForm/index.jsx";
+import PostList from "./components/PostList/index.jsx";
+import Pagination from "./components/Pagination/index.jsx";
+import Clock from "./components/Clock/index.jsx";
+import MagicBox from "./components/MagicBox/index.jsx";
 import queryString from "query-string";
 //import TodoForm from "./TodoForm";
 
@@ -41,10 +44,17 @@ function App() {
     fetchPostList();
   }, [filters]);
   function handlePageChange(newPage) {
-    console.log("New page: " + newPage);
     setFilters({
       ...filters,
       _page: newPage,
+    });
+  }
+  function handleSearchTermChange(newSearch) {
+    console.log("New search: ", newSearch);
+    setFilters({
+      ...filters,
+      _page: 1,
+      title_like: newSearch.searchTerm,
     });
   }
   function handleTodoList(todo) {
@@ -67,8 +77,11 @@ function App() {
   return (
     <div className="App">
       <h3>React-hooks PostList</h3>
+      <MagicBox />
+      {/* <Clock />
+      <PostFiltersForm onSubmit={handleSearchTermChange} />
       <PostList posts={posts} />
-      <Pagination pagination={pagination} onPageChange={handlePageChange} />
+      <Pagination pagination={pagination} onPageChange={handlePageChange} /> */}
       {/* <TodoForm onSubmit={handleTodoForm} />
       <TodoList todos={todoList} onTodoClick={handleTodoList} /> */}
     </div>
